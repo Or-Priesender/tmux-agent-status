@@ -12,6 +12,12 @@ opt() {
 waiting=$(opt @agent-status-waiting '#[fg=yellow] ●')
 running=$(opt @agent-status-running '#[fg=green] ◐')
 done_=$(opt @agent-status-done '#[fg=colour67] ✓')
+if [ "$(opt @agent-status-blink off)" = on ]; then
+  # strftime drops non-ASCII text, so the timed part holds only the seconds parity.
+  tmux set -g @agent-status-blink-tick '#{e|%%:%S,2}'
+  tmux set -g status-interval 1
+  waiting="#{?#{T:@agent-status-blink-tick},$waiting,$(opt @agent-status-blink-off '  ')}"
+fi
 status="#{?#{==:#{@agent},waiting},$waiting,}#{?#{==:#{@agent},running},$running,}#{?#{==:#{@agent},done},$done_,}"
 dup='#{?@dup, (#{@dup}),}'
 hidden='#{?@hidden_count,#[fg=colour244]+#{@hidden_count} more ,}#{?@hidden_waiting,#[fg=yellow]#{@hidden_waiting} waiting ● ,}'

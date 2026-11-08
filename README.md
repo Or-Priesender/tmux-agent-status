@@ -71,6 +71,12 @@ Options (all optional):
 | `@agent-status-running` | `#[fg=green] ◐` | Icon for "running" |
 | `@agent-status-done` | `#[fg=colour67] ✓` | Icon for "done" |
 | `@agent-status-auto` | `on` | Add `#{agent_status}` to window formats that do not have it |
+| `@agent-status-blink` | `off` | Make the "waiting" icon blink (see below) |
+| `@agent-status-blink-off` | two spaces | What shows in the "off" step of the blink. Use the same width as your waiting icon. |
+
+### Blink
+
+Some terminals (for example Ghostty) do not show the tmux `blink` style, so `#[blink]` can hide the icon. `@agent-status-blink on` makes its own blink instead: the icon goes on and off each second. For this, the plugin sets `status-interval 1`, so tmux redraws the status bar each second. This uses almost no CPU. But if your status bar has `#(...)` shell commands, tmux runs them each second too.
 
 The popup needs tmux 3.2 or later and [fzf](https://github.com/junegunn/fzf).
 
