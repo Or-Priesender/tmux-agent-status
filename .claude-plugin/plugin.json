@@ -1,0 +1,10 @@
+{
+  "name": "tmux-agent-status",
+  "version": "1.0.0",
+  "description": "Shows Claude Code agent status (running, waiting, done) on each tmux window.",
+  "author": {
+    "name": "Or Priesender"
+  },
+  "repository": "https://github.com/Or-Priesender/tmux-agent-status",
+  "license": "MIT"
+}

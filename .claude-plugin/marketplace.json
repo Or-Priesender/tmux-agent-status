@@ -1,0 +1,14 @@
+{
+  "name": "tmux-agent-status",
+  "owner": {
+    "name": "Or Priesender"
+  },
+  "plugins": [
+    {
+      "name": "tmux-agent-status",
+      "source": "./",
+      "description": "Shows Claude Code agent status (running, waiting, done) on each tmux window."
+    }
+  ],
+  "description": "tmux window status for Claude Code agents"
+}
