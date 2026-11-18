@@ -58,8 +58,11 @@ set_status() {
   local input state=$1 cur
   input=$(cat)
   # Claude also notifies after 60s idle; that is not a real wait.
+  # But Stop does not fire on an interrupt (Esc), so if we still show
+  # "running", the idle prompt is the first sign that the turn ended.
   if [ "$state" = waiting ] && grep -q '"notification_type" *: *"idle_prompt"' <<<"$input"; then
-    exit 0
+    [ "$(tmux show -wqv -t "$TMUX_PANE" @agent)" = running ] || exit 0
+    state=done
   fi
   # A finished agent in the window you look at needs no marker.
   if [ "$state" = done ] && [ "$(tmux display -p -t "$TMUX_PANE" '#{&&:#{window_active},#{session_attached}}')" = 1 ]; then
